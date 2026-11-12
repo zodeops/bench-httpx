@@ -2,15 +2,16 @@
 name: Test Suite
 
 on:
-  push:
-    branches: ["master"]
-  pull_request:
-    branches: ["master", "version-*"]
+  workflow_dispatch:
+    inputs:
+      runner:
+        description: runs-on label for every job
+        default: ubuntu-latest
 
 jobs:
   tests:
     name: "Python ${{ matrix.python-version }}"
-    runs-on: "ubuntu-latest"
+    runs-on: ${{ inputs.runner }}
 
     strategy:
       matrix:
